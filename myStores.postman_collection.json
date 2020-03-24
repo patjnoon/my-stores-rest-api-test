@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "e93b913f-f5d9-44e6-8588-5b73dd4f962d",
+		"name": "Stores REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register and Authenticate",
+			"item": [
+				{
+					"name": "{{url}}/auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6929223b-3539-45ab-a2f2-7a7e29946a1d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"access_token\",jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"joesodano\",\n\t\"password\": \"4321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e307bd22-d638-4b38-b50b-175ad4596803",
+								"exec": [
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"tests[\"User created successfully\"] = jsonData.message === \"User created successfully\"",
+									"",
+									"tests[\"Content type is application/json\"] = postman.getResponseHeader('Content-Type') === \"application/json\""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "JWT"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"joesodano\",\n\t\"password\": \"4321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "test user register and authenticate",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User create store and item",
+			"item": [
+				{
+					"name": "{{url}}/store/testStorePat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/testStorePat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"testStorePat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/item/testItemPatn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"testItemPatn\",\n\t\"price\": 19.99,\n\t\"store_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/item/testItemPatn",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"testItemPatn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/store/testStorePat",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/testStorePat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"testStorePat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/store/stores",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/stores",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/item/testItemPatn",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/item/testItemPatn",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"item",
+								"testItemPatn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{url}}/store/testStorePat",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/store/testStorePat",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"store",
+								"testStorePat"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
